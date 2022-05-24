@@ -1,5 +1,5 @@
 {
-  "name": "web-package",
+  "name": "@karan-push/web-package",
   "version": "1.0.0",
   "main": "dist/index.js",
   "author": "Karan Parsnani",
@@ -9,7 +9,7 @@
     "start": "rollup -c -w"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/karan-push/"
+    "registry": "https://registry.npmjs.org/"
   },
   "peerDependencies": {
     "react": "^17.0.2",
