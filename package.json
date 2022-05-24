@@ -1,6 +1,6 @@
 {
   "name": "@karan-push/web-package",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "author": "Karan Parsnani",
   "license": "MIT",
@@ -33,5 +33,7 @@
     "typescript": "^4.6.4",
     "@types/styled-components": "^5.1.15"
   },
-  "files": ["dist"]
+  "files": [
+    "dist"
+  ]
 }
