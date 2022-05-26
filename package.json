@@ -31,6 +31,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-test-renderer": "^17.0.2",
+    "react-use": "^17.4.0",
     "rollup": "^2.74.1",
     "rollup-plugin-sass": "^1.2.12",
     "rollup-plugin-typescript2": "^0.31.2",
