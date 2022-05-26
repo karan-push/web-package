@@ -22,11 +22,11 @@ const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
         <img onClick={onClose} src={CLOSE_ICON} alt="" />
         <Item className="modal__heading">
           <CustomHeaderTwo>
-            <CustomSpan style={{ marginRight: "10px" }}>Recieve</CustomSpan>
+            <CustomSpan style={{ marginRight: "10px" }}>Receive</CustomSpan>
             <StyledSpan>Notifications</StyledSpan>
           </CustomHeaderTwo>
           <H3>
-            Recieve notifications from <b>EPNS</b> via the following platforms.
+            Receive notifications from <b>EPNS</b> via the following platforms.
           </H3>
         </Item>
 
