@@ -16,8 +16,9 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
-    "moment": "^2.29.3",
     "html-react-parser": "^1.4.12",
+    "moment": "^2.29.3",
+    "@rollup/plugin-eslint": "^8.0.2",
     "react-use": "^17.4.0"
   },
   "peerDependencies": {
@@ -29,8 +30,12 @@
     "@types/react": "^17.0.44",
     "@types/react-dom": "^18.0.5",
     "@types/styled-components": "^5.1.15",
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
     "babel-core": "^6.26.3",
     "babel-runtime": "^6.26.0",
+    "eslint": "^8.16.0",
+    "eslint-plugin-react": "^7.30.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-test-renderer": "^17.0.2",

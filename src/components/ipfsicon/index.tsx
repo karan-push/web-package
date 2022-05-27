@@ -1,42 +1,41 @@
-import * as React from 'react';
-import axios from 'axios';
-import { extractIPFSHashFromImageURL } from '../../utilities';
-
-type IPFSIconType = {
-    icon: string | undefined
+import * as React from "react";
+import axios from "axios";
+import { extractIPFSHashFromImageURL } from "../../utilities";
+const IPFSIcon = function (_a) {
+  const icon = _a.icon;
+  const _b = React.useState(""),
+    imageInBase64 = _b[0],
+    setImageInBase64 = _b[1];
+  // fetch and pin the icons using ipfs hash
+  React.useEffect(
+    function () {
+      // extract the IPFS image url from the url of the icon
+      const _a = extractIPFSHashFromImageURL(icon),
+        type = _a.type,
+        ipfsHash = _a.url;
+      if (!ipfsHash) return;
+      // fetch the image directly from ipfs
+      if (type === "http") {
+        axios
+          .get(ipfsHash)
+          .then(function (_a) {
+            const res = _a.data;
+            setImageInBase64(res.icon);
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
+      } else {
+        setImageInBase64(ipfsHash);
+      }
+    },
+    [icon]
+  );
+  return React.createElement("img", {
+    style: { width: "100%" },
+    src: imageInBase64,
+    alt: "",
+  });
 };
-
-const IPFSIcon: React.FC<IPFSIconType> = ({
-    icon
-}) => {
-    const [imageInBase64, setImageInBase64] = React.useState('');
-
-    // fetch and pin the icons using ipfs hash
-    React.useEffect(() =>{
-        // extract the IPFS image url from the url of the icon
-        const {type, url: ipfsHash} = extractIPFSHashFromImageURL(icon);
-        if(!ipfsHash) return;
-        // fetch the image directly from ipfs
-        if(type === "http"){
-            axios.get(ipfsHash)
-            .then(({data: res}) => {
-                setImageInBase64(res.icon);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        }else{
-            setImageInBase64(ipfsHash)
-        }
-    
-    }, [icon]);
-
-    return (
-        <img
-            style={{width: "100%"}}
-            src={imageInBase64} alt=""
-        />
-    )
-};
-
 export default IPFSIcon;
+//# sourceMappingURL=index.js.map
