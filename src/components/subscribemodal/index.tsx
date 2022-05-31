@@ -22,7 +22,7 @@ const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
         <img onClick={onClose} src={CLOSE_ICON} alt="" />
         <Item className="modal__heading">
           <CustomHeaderTwo>
-            <CustomSpan style={{ marginRight: "10px" }}>Receive</CustomSpan>
+            <CustomSpan>Receive</CustomSpan>
             <StyledSpan>Notifications</StyledSpan>
           </CustomHeaderTwo>
           <H3>
@@ -113,6 +113,7 @@ const CustomSpan = styled.span`
   position: initial;
   inset: auto;
   z-index: auto;
+  margin-right: 10px;
 `;
 
 const StyledSpan = styled(CustomSpan)`
