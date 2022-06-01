@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as PropTypes from "prop-types";
 import styled from "styled-components";
-import * as moment from "moment";
+import { format, parseISO } from "date-fns";
 
 import IPFSIcon from "../ipfsicon";
 import ImageOverlayComponent from "../overlay";
@@ -230,10 +230,7 @@ const ViewNotificationItem: React.FC<NotificationItemProps> = ({
           <Pool>
             <PoolShare theme = {theme}>
               {timeStamp
-                ? moment
-                    .utc(parseInt(timeStamp) * 1000)
-                    .local()
-                    .format("DD MMM YYYY | hh:mm A")
+                ? format(parseISO(timeStamp), 'DD MMM YYYY | hh:mm A')
                 : "N/A"}
             </PoolShare>
           </Pool>
