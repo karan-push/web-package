@@ -48,7 +48,7 @@ export const FormatBody = (message: string) => {
   };
   const matches = notificationBody.match(/\[timestamp:(.*?)\]/);
   if (matches) {
-    parsedBody.timeStamp = convertTimeStamp(matches[1]);
+    parsedBody.timeStamp = matches[1];
     const textWithoutTimeStamp = notificationBody.replace(
       / *\[timestamp:[^)]*\] */g,
       ""

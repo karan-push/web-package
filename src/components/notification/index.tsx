@@ -7,7 +7,7 @@ import ImageOverlayComponent from "../overlay";
 import ParseMarkdownText from "../parsetext";
 import MediaHelper from "../../utilities/mediaHelper";
 import Loader from "../loader/loader";
-import { extractTimeStamp } from "../../utilities";
+import { convertTimeStamp, extractTimeStamp } from "../../utilities";
 import ChainImages from '../../constants/chain';
 import ActionButton from './styled/ActionButton';
 import { useDecrypt, DecryptButton } from './decrypt';
@@ -228,7 +228,7 @@ const ViewNotificationItem: React.FC<NotificationItemProps> = ({
         <>
           <Pool>
             <PoolShare theme = {theme}>
-              {timeStamp || "N/A"}
+              {timeStamp ? convertTimeStamp(timeStamp) : "N/A"}
             </PoolShare>
           </Pool>
         </>
