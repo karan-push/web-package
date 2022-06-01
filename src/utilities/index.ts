@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 const IPFS_BASE_URL = "https://ipfs.io/ipfs/";
 
 /**
@@ -55,4 +57,8 @@ export const FormatBody = (message: string) => {
     parsedBody.originalBody = textWithoutTimeStamp;
   }
   return parsedBody;
+}
+
+export function convertTimeStamp(timeStamp: string) {
+  return format(new Date(Number(timeStamp) * 1000), 'dd MMM yyyy | hh:mm a')
 }
