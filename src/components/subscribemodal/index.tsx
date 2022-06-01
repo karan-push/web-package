@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactUse from "react-use";
 import styled from "styled-components";
-import { LINKS, CLOSE_ICON } from "./constants";
+import { LINKS } from "./constants";
 
 export type SubscribedModalProps = {
   onClose: () => void;
@@ -19,7 +19,7 @@ const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
   return (
     <Overlay className="overlay">
       <Modal className="modal" ref={modalRef}>
-        <img onClick={onClose} src={CLOSE_ICON} alt="" />
+        <CloseButton onClick={onClose}>X</CloseButton>
         <Item className="modal__heading">
           <CustomHeaderTwo>
             <CustomSpan style={{ marginRight: "10px" }}>Receive</CustomSpan>
@@ -177,6 +177,12 @@ const Modal = styled.div`
       gap: 10px !important;
     }
   }
+`;
+
+const CloseButton = styled.div`
+  font-size: 30px;
+  position: absolute;
+  cursor: pointer;
 `;
 
 export default SubscribedModal;
