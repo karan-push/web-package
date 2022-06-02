@@ -7,6 +7,7 @@ export type SubscribedModalProps = {
   onClose: () => void;
 };
 const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
+  
   const modalRef = React.useRef(null);
   // dummy function to help navigate to another page
   const goto = (url: any) => {
@@ -19,11 +20,10 @@ const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
   return (
     <Overlay className="overlay">
       <Modal className="modal" ref={modalRef}>
-        {/* <CloseButton className="closeButton"></CloseButton> */}
         <CloseButton onClick={onClose}></CloseButton>
         <Item className="modal__heading">
           <CustomHeaderTwo>
-            <CustomSpan className="display__mobile">Receive</CustomSpan>
+            <CustomSpan>Receive</CustomSpan>
             <StyledSpan>Notifications</StyledSpan>
           </CustomHeaderTwo>
           <H3>
@@ -50,8 +50,11 @@ const CloseButton = styled.a`
   top: 37px;
   width: 40px;
   height: 40px;
-  opacity: 0.2;
-
+  opacity: 0.3;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
   &:before,
   &:after {
     position: absolute;
@@ -142,7 +145,7 @@ const CustomSpan = styled.span`
 
   @media (max-width: 600px) {
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: 7px;
   }
 `;
 
