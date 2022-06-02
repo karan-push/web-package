@@ -1,12 +1,13 @@
 import * as React from "react";
 import * as ReactUse from "react-use";
 import styled from "styled-components";
-import { LINKS, CLOSE_ICON } from "./constants";
+import { LINKS } from "./constants";
 
 export type SubscribedModalProps = {
   onClose: () => void;
 };
 const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
+  
   const modalRef = React.useRef(null);
   // dummy function to help navigate to another page
   const goto = (url: any) => {
@@ -19,10 +20,10 @@ const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
   return (
     <Overlay className="overlay">
       <Modal className="modal" ref={modalRef}>
-        <img onClick={onClose} src={CLOSE_ICON} alt="" />
+        <CloseButton onClick={onClose}></CloseButton>
         <Item className="modal__heading">
           <CustomHeaderTwo>
-            <CustomSpan style={{ marginRight: "10px" }}>Receive</CustomSpan>
+            <CustomSpan>Receive</CustomSpan>
             <StyledSpan>Notifications</StyledSpan>
           </CustomHeaderTwo>
           <H3>
@@ -43,6 +44,33 @@ const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
   );
 };
 
+const CloseButton = styled.a`
+  position: absolute;
+  right: 10px;
+  top: 37px;
+  width: 40px;
+  height: 40px;
+  opacity: 0.3;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+  &:before,
+  &:after {
+    position: absolute;
+    content: " ";
+    height: 33px;
+    width: 2px;
+    background-color: #333;
+  }
+  &:before {
+    transform: rotate(45deg);
+  }
+  &:after {
+    transform: rotate(-45deg);
+  }
+`;
+
 const ItemLink = styled.div`
   width: 260px;
   height: 62px;
@@ -61,7 +89,7 @@ const ItemLink = styled.div`
   cursor: pointer;
   transition: 300ms;
 
-  &:hover{
+  &:hover {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 `;
@@ -77,7 +105,7 @@ const CustomHeaderTwo = styled.h2`
   font-family: inherit;
   text-align: inherit;
 
-  @media(max-width: 1000px){
+  @media (max-width: 1000px) {
     font-size: 1.2625em;
   }
 `;
@@ -113,6 +141,12 @@ const CustomSpan = styled.span`
   position: initial;
   inset: auto;
   z-index: auto;
+  margin-right: 10px;
+
+  @media (max-width: 600px) {
+      display: block;
+      margin-bottom: 7px;
+  }
 `;
 
 const StyledSpan = styled(CustomSpan)`
@@ -120,6 +154,10 @@ const StyledSpan = styled(CustomSpan)`
   color: #fff;
   font-weight: 600;
   padding: 3px 8px;
+
+  @media (max-width: 600px) {
+    display: inline;
+  }
 `;
 
 const H3 = styled.h3`
@@ -133,6 +171,11 @@ const H3 = styled.h3`
   font-family: "Source Sans Pro", Helvetica, sans-serif;
   text-align: inherit;
   max-width: initial;
+
+  @media (max-width: 600px) {
+    margin-top: 0;
+    margin-bottom: -7px;
+  }
 `;
 
 const Overlay = styled.div`
@@ -160,14 +203,14 @@ const Modal = styled.div`
   border-radius: 15px;
   position: relative;
 
-  &>img{
+  & > img {
     position: absolute;
     right: 40px;
     top: 40px;
     cursor: pointer;
   }
 
-  @media(max-width: 1000px){
+  @media (max-width: 1000px) {
     width: max(70vw, 350px);
     padding: 2em;
     .modal__content {
