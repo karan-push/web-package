@@ -19,9 +19,7 @@ const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
   return (
     <Overlay className="overlay">
       <Modal className="modal" ref={modalRef}>
-        <CloseButton>
-          <a onClick={onClose} className="modalCloseIcon" />
-        </CloseButton>
+        <CloseButton onClick={onClose} className="modalCloseIcon"></CloseButton>
         <Item className="modal__heading">
           <CustomHeaderTwo>
             <CustomSpan style={{ marginRight: "10px" }}>Receive</CustomSpan>
@@ -45,16 +43,17 @@ const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
   );
 };
 
-const CloseButton = styled.div`
-  position: relative;
-  .modalCloseIcon {
+const CloseButton = styled.a`
+
     position: absolute;
+    right: 10px;
+    top: 37px;
     width: 40px;
     height: 40px;
     opacity: 0.2;
-  }
-  .modalCloseIcon:before,
-  .modalCloseIcon:after {
+    
+  &:before,
+  &:after {
     position: absolute;
     right: -635px;
     top: -32px;
@@ -63,10 +62,10 @@ const CloseButton = styled.div`
     width: 2px;
     background-color: #333;
   }
-  .modalCloseIcon:before {
+  &:before {
     transform: rotate(45deg);
   }
-  .modalCloseIcon:after {
+  &:after {
     transform: rotate(-45deg);
   }
 `;
