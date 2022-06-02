@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactUse from "react-use";
 import styled from "styled-components";
-import { LINKS, CLOSE_ICON } from "./constants";
+import { LINKS } from "./constants";
 
 export type SubscribedModalProps = {
   onClose: () => void;
@@ -19,7 +19,9 @@ const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
   return (
     <Overlay className="overlay">
       <Modal className="modal" ref={modalRef}>
-        <img onClick={onClose} src={CLOSE_ICON} alt="" />
+        <CloseButton>
+          <a onClick={onClose} className="modalCloseIcon" />
+        </CloseButton>
         <Item className="modal__heading">
           <CustomHeaderTwo>
             <CustomSpan style={{ marginRight: "10px" }}>Receive</CustomSpan>
@@ -42,6 +44,32 @@ const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
     </Overlay>
   );
 };
+
+const CloseButton = styled.div`
+  position: relative;
+  .modalCloseIcon {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    opacity: 0.2;
+  }
+  .modalCloseIcon:before,
+  .modalCloseIcon:after {
+    position: absolute;
+    right: -635px;
+    top: -32px;
+    content: " ";
+    height: 33px;
+    width: 2px;
+    background-color: #333;
+  }
+  .modalCloseIcon:before {
+    transform: rotate(45deg);
+  }
+  .modalCloseIcon:after {
+    transform: rotate(-45deg);
+  }
+`;
 
 const ItemLink = styled.div`
   width: 260px;
