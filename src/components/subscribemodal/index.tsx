@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactUse from "react-use";
 import styled from "styled-components";
 import { LINKS } from "./constants";
 
@@ -15,11 +14,15 @@ const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
   };
 
   // Form signer and contract connection
-  ReactUse.useClickAway(modalRef, onClose);
+    window.addEventListener("click", (e: MouseEvent) => {
+      if(e.target instanceof Element && e.target.id !=="subscriberModal_ID"){
+        onClose();
+      };
+      })
 
   return (
     <Overlay className="overlay">
-      <Modal className="modal" ref={modalRef}>
+      <Modal className="modal" ref={modalRef} id="subscriberModal_ID">
         <CloseButton onClick={onClose}></CloseButton>
         <Item className="modal__heading">
           <CustomHeaderTwo>
@@ -33,7 +36,7 @@ const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
 
         <Item className="modal__content">
           {LINKS.map((oneLink) => (
-            <ItemLink onClick={() => goto(oneLink.link)}>
+            <ItemLink onClick={() => goto(oneLink.link)} key={oneLink.link}>
               <img src={oneLink.img} alt="" />
               {oneLink.text}
             </ItemLink>
