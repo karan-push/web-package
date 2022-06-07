@@ -1,12 +1,12 @@
 import * as React from "react";
 import styled from "styled-components";
+import useClickAway from "../../hooks/useClickAway";
 import { LINKS } from "./constants";
 
 export type SubscribedModalProps = {
   onClose: () => void;
 };
 const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
-  
   const modalRef = React.useRef(null);
   // dummy function to help navigate to another page
   const goto = (url: any) => {
@@ -14,15 +14,11 @@ const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
   };
 
   // Form signer and contract connection
-    window.addEventListener("click", (e: MouseEvent) => {
-      if(e.target instanceof Element && e.target.id !=="subscriberModal_ID"){
-        onClose();
-      };
-      })
+  useClickAway(modalRef, onClose);
 
   return (
     <Overlay className="overlay">
-      <Modal className="modal" ref={modalRef} id="subscriberModal_ID">
+      <Modal className="modal" ref={modalRef}>
         <CloseButton onClick={onClose}></CloseButton>
         <Item className="modal__heading">
           <CustomHeaderTwo>
@@ -147,8 +143,8 @@ const CustomSpan = styled.span`
   margin-right: 10px;
 
   @media (max-width: 600px) {
-      display: block;
-      margin-bottom: 7px;
+    display: block;
+    margin-bottom: 7px;
   }
 `;
 
