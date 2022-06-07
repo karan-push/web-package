@@ -19,24 +19,24 @@ export function extractIPFSHashFromImageURL(imageURL: string | undefined) {
 /**
  * @description Parse the contents of the markdown version of the notification body
  * @param message the notification body we wish to parse
- * @returns 
+ * @returns
  */
 export const FormatBody = (message: string) => {
   // firstly replace all new line content of the text with <br />
   // in order to parse it as HTML i.e "\n\n" => "<br /><br />"
-  const parsedNewLine =  message.replace(/\n/g, "<br />");
+  const parsedNewLine = message.replace(/\n/g, "<br />");
   // remove leading slashes from text i.e \alex => alex
   const removedLeadingSlash = parsedNewLine.replace(/^\\/g, "");
 
   return removedLeadingSlash;
-}
+};
 
 /**
  * @description parse and extract the timestamp from the body of the notification and remove the text from the body
  * @param notificationBody the text which would represent the body of the notification
  * @returns
  */
- export function extractTimeStamp(notificationBody: string): {
+export function extractTimeStamp(notificationBody: string): {
   notificationBody: string;
   timeStamp: string;
   originalBody: string;
@@ -60,5 +60,43 @@ export const FormatBody = (message: string) => {
 }
 
 export function convertTimeStamp(timeStamp: string) {
-  return format(new Date(Number(timeStamp) * 1000), 'dd MMM yyyy | hh:mm a')
+  return format(new Date(Number(timeStamp) * 1000), "dd MMM yyyy | hh:mm a");
+}
+
+export async function client(endpoint: RequestInfo, options?: RequestInit) {
+  const { body, ...customConfig } = options ?? {}
+  const headers = { 'Content-Type': 'application/json' }
+  const config: RequestInit = {
+    method: body ? 'POST' : 'GET',
+    ...customConfig,
+    headers: {
+      ...headers,
+      ...customConfig.headers,
+    },
+  }
+
+  if (body) {
+    config.body = JSON.stringify(body)
+  }
+
+  let data
+  try {
+    const response = await window.fetch(endpoint, config)
+    data = await response.json()
+    if (response.ok) {
+      return data
+    }
+    throw new Error(response.statusText)
+  } catch (err) {
+    return Promise.reject(err.message ? err.message : data)
+  }
+}
+
+
+client.get = function (endpoint: RequestInfo, customConfig?: RequestInit) {
+  return client(endpoint, { ...customConfig, method: 'GET' })
+}
+
+client.post = function (endpoint: RequestInfo, body: BodyInit | null, customConfig?: RequestInit) {
+  return client(endpoint, { ...customConfig, body })
 }
