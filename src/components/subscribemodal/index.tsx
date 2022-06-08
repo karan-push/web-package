@@ -1,13 +1,12 @@
 import * as React from "react";
-import * as ReactUse from "react-use";
 import styled from "styled-components";
+import useClickAway from "../../hooks/useClickAway";
 import { LINKS } from "./constants";
 
 export type SubscribedModalProps = {
   onClose: () => void;
 };
 const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
-  
   const modalRef = React.useRef(null);
   // dummy function to help navigate to another page
   const goto = (url: any) => {
@@ -15,7 +14,7 @@ const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
   };
 
   // Form signer and contract connection
-  ReactUse.useClickAway(modalRef, onClose);
+  useClickAway(modalRef, onClose);
 
   return (
     <Overlay className="overlay">
@@ -33,7 +32,7 @@ const SubscribedModal: React.FC<SubscribedModalProps> = ({ onClose }) => {
 
         <Item className="modal__content">
           {LINKS.map((oneLink) => (
-            <ItemLink onClick={() => goto(oneLink.link)}>
+            <ItemLink onClick={() => goto(oneLink.link)} key={oneLink.link}>
               <img src={oneLink.img} alt="" />
               {oneLink.text}
             </ItemLink>
@@ -144,8 +143,8 @@ const CustomSpan = styled.span`
   margin-right: 10px;
 
   @media (max-width: 600px) {
-      display: block;
-      margin-bottom: 7px;
+    display: block;
+    margin-bottom: 7px;
   }
 `;
 
