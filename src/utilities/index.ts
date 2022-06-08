@@ -63,14 +63,14 @@ export function convertTimeStamp(timeStamp: string) {
   return format(new Date(Number(timeStamp) * 1000), "dd MMM yyyy | hh:mm a");
 }
 
-export async function client(endpoint: RequestInfo, options?: RequestInit) {
+export async function httpRequest(url: RequestInfo, options?: RequestInit) {
   const { body, ...customConfig } = options ?? {}
   const headers = { 'Content-Type': 'application/json' }
   const config: RequestInit = {
-    method: body ? 'POST' : 'GET',
+    method: options?.method,
     ...customConfig,
     headers: {
-      ...headers,
+      ...body ? headers : {},
       ...customConfig.headers,
     },
   }
@@ -81,7 +81,7 @@ export async function client(endpoint: RequestInfo, options?: RequestInit) {
 
   let data
   try {
-    const response = await window.fetch(endpoint, config)
+    const response = await window.fetch(url, config)
     data = await response.json()
     if (response.ok) {
       return data
@@ -90,13 +90,4 @@ export async function client(endpoint: RequestInfo, options?: RequestInit) {
   } catch (err) {
     return Promise.reject(err.message ? err.message : data)
   }
-}
-
-
-client.get = function (endpoint: RequestInfo, customConfig?: RequestInit) {
-  return client(endpoint, { ...customConfig, method: 'GET' })
-}
-
-client.post = function (endpoint: RequestInfo, body: BodyInit | null, customConfig?: RequestInit) {
-  return client(endpoint, { ...customConfig, body })
 }

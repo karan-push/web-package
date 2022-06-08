@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { extractIPFSHashFromImageURL, client } from '../../utilities';
+import { extractIPFSHashFromImageURL, httpRequest } from '../../utilities';
 
 type IPFSIconType = {
     icon: string | undefined
@@ -17,9 +17,8 @@ const IPFSIcon: React.FC<IPFSIconType> = ({
         if(!ipfsHash) return;
         // fetch the image directly from ipfs
         if(type === "http"){
-            client.get(ipfsHash)
-            .then(response => response.json())
-            .then(({data: res}) => {
+            httpRequest(ipfsHash)
+            .then((res) => {
                 setImageInBase64(res.icon);
             })
             .catch((err) => {
