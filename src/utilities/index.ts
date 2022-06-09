@@ -1,5 +1,4 @@
 import { format } from "date-fns";
-import { FetchWrapperData } from "../types";
 
 const IPFS_BASE_URL = "https://ipfs.io/ipfs/";
 
@@ -64,7 +63,7 @@ export function convertTimeStamp(timeStamp: string) {
   return format(new Date(Number(timeStamp) * 1000), "dd MMM yyyy | hh:mm a");
 }
 
-export async function httpRequest(url: RequestInfo, options?: RequestInit): Promise<FetchWrapperData> {
+export async function httpRequest(url: RequestInfo, options?: RequestInit): Promise<Response> {
   const { body, ...customConfig } = options ?? {};
   const headers = { "Content-Type": "application/json" };
   const config: RequestInit = {
@@ -80,7 +79,7 @@ export async function httpRequest(url: RequestInfo, options?: RequestInit): Prom
     config.body = JSON.stringify(body);
   }
 
-  let data!: FetchWrapperData;
+  let data!: Response;
   try {
     const response = await window.fetch(url, config);
     data = await response.json();

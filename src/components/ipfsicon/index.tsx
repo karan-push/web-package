@@ -19,7 +19,7 @@ const IPFSIcon: React.FC<IPFSIconType> = ({
         if(type === "http"){
             httpRequest(ipfsHash)
             .then((res) => {
-                setImageInBase64(res.icon);
+                setImageInBase64(res['icon']);
             })
             .catch((err) => {
                 console.log(err);
