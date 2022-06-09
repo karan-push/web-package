@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { FetchWrapperData } from "../types";
 
 const IPFS_BASE_URL = "https://ipfs.io/ipfs/";
 
@@ -63,31 +64,31 @@ export function convertTimeStamp(timeStamp: string) {
   return format(new Date(Number(timeStamp) * 1000), "dd MMM yyyy | hh:mm a");
 }
 
-export async function httpRequest(url: RequestInfo, options?: RequestInit) {
-  const { body, ...customConfig } = options ?? {}
-  const headers = { 'Content-Type': 'application/json' }
+export async function httpRequest(url: RequestInfo, options?: RequestInit): Promise<FetchWrapperData> {
+  const { body, ...customConfig } = options ?? {};
+  const headers = { "Content-Type": "application/json" };
   const config: RequestInit = {
     method: options?.method,
     ...customConfig,
     headers: {
-      ...body ? headers : {},
+      ...(body ? headers : {}),
       ...customConfig.headers,
     },
-  }
+  };
 
   if (body) {
-    config.body = JSON.stringify(body)
+    config.body = JSON.stringify(body);
   }
 
-  let data
+  let data!: FetchWrapperData;
   try {
-    const response = await window.fetch(url, config)
-    data = await response.json()
+    const response = await window.fetch(url, config);
+    data = await response.json();
     if (response.ok) {
-      return data
+      return data;
     }
-    throw new Error(response.statusText)
+    throw new Error(response.statusText);
   } catch (err) {
-    return Promise.reject(err.message ? err.message : data)
+    return Promise.reject(err.message ? err.message : data);
   }
 }
